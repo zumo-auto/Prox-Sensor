@@ -8,9 +8,6 @@ Zumo32U4OLED display;
 Zumo32U4LineSensors lineSensors;
 Zumo32U4ProximitySensors proxSensors;
 
-// Array voor het opslaan van de waarden van de lijnsensoren
-uint16_t lineSensorValues[5] = { 0, 0, 0, 0, 0 };
-
 // Variabelen om de status van de Proxsensoren op te slaan
 bool proxLeftActive;
 bool proxFrontActive;
@@ -25,9 +22,6 @@ void setup()
 
   // Laden van aangepaste karakters voor de display
   loadCustomCharacters();
-
-  // Kalibratie van de lijnsensoren
-//  calibrateLineSensors();
 }
 
 // Weet nog niet geheel wat dit doet
@@ -63,48 +57,24 @@ void printReadingsToDisplay()
 {
   // Afdrukken van de waarden van de proxsensoren op de display
   display.gotoXY(0, 0); 
-  printBar(proxSensors.countsLeftWithLeftLeds());
-  printBar(proxSensors.countsLeftWithRightLeds());
-  display.print(' ');
-  printBar(proxSensors.countsFrontWithLeftLeds());
-  printBar(proxSensors.countsFrontWithRightLeds()); 
-  display.print(' ');
-  printBar(proxSensors.countsRightWithLeftLeds());
-  printBar(proxSensors.countsRightWithRightLeds());
-
-  // Afdrukken van de waarden van de lijnsensoren op de display (niet relevant voor de proxsensor)
-  display.gotoXY(0, 1);
-  for (uint8_t i = 0; i < 5; i++)
-  {
-    uint8_t barHeight = map(lineSensorValues[i], 0, 1000, 0, 8);
-    printBar(barHeight);
-  }
+  display.print(F("Left: "));
+  display.println(proxSensors.countsLeft());
+  display.print(F("Front: "));
+  display.println(proxSensors.countsFront());
+  display.print(F("Right: "));
+  display.println(proxSensors.countsRight());
 }
 
 // Functie voor het afdrukken van gegevens van de sensoren naar de seriële monitor
 void printReadingsToSerial()
 {
-  // Buffer voor het opslaan van de sensorgegevens
-  static char buffer[80];
-  // Opstellen van de gegevens in de buffer
-  sprintf(buffer, "%d %d %d %d %d %d  %d %d %d  %4d %4d %4d %4d %4d\n",
-    proxSensors.countsLeftWithLeftLeds(),
-    proxSensors.countsLeftWithRightLeds(),
-    proxSensors.countsFrontWithLeftLeds(),
-    proxSensors.countsFrontWithRightLeds(),
-    proxSensors.countsRightWithLeftLeds(),
-    proxSensors.countsRightWithRightLeds(),
-    proxLeftActive,
-    proxFrontActive,
-    proxRightActive,
-   lineSensorValues[0],
-   lineSensorValues[1],
-   lineSensorValues[2],
-   lineSensorValues[3],
-   lineSensorValues[4]
-  );
-  // Afdrukken van de gegevens naar de seriële monitor
-  Serial.print(buffer);
+  // Afdrukken van de waarden van de proxsensoren naar de seriële monitor
+  Serial.print(F("Left: "));
+  Serial.println(proxSensors.countsLeft());
+  Serial.print(F("Front: "));
+  Serial.println(proxSensors.countsFront());
+  Serial.print(F("Right: "));
+  Serial.println(proxSensors.countsRight());
 }
 
 // Hoofdprogramma, wordt continu herhaald
@@ -121,10 +91,6 @@ void loop()
     // Uitvoeren van metingen met de proxsensoren
     proxSensors.read();
 
-    // Lezen van de proxsensoren zonder IR-pulsen te verzenden
-    proxLeftActive = proxSensors.readBasicLeft();
-    proxFrontActive = proxSensors.readBasicFront();
-    proxRightActive = proxSensors.readBasicRight();
 
     // Afdrukken van gegevens naar het display en de seriële monitor
     printReadingsToDisplay();
