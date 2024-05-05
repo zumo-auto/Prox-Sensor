@@ -27,7 +27,7 @@ void setup()
   loadCustomCharacters();
 
   // Kalibratie van de lijnsensoren
-  calibrateLineSensors();
+//  calibrateLineSensors();
 }
 
 // Weet nog niet geheel wat dit doet
