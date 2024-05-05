@@ -1,17 +1,17 @@
 #include <Wire.h>
 #include <Zumo32U4.h>
 
-// Initialisatie van het OLED-display
+// declaratie display
 Zumo32U4OLED display;
 
-// Initialisatie van de lijnsensoren en de nabijheidssensoren
+// Declaratie van de lijnsensoren en de Proxsensoren
 Zumo32U4LineSensors lineSensors;
 Zumo32U4ProximitySensors proxSensors;
 
 // Array voor het opslaan van de waarden van de lijnsensoren
 uint16_t lineSensorValues[5] = { 0, 0, 0, 0, 0 };
 
-// Variabelen om de status van de nabijheidssensoren op te slaan
+// Variabelen om de status van de Proxsensoren op te slaan
 bool proxLeftActive;
 bool proxFrontActive;
 bool proxRightActive;
@@ -19,25 +19,25 @@ bool proxRightActive;
 // Setup functie, wordt eenmaal uitgevoerd bij het opstarten
 void setup()
 {
-  // Initialisatie van de lijnsensoren en de nabijheidssensoren
+  // Initialisatie van de lijnsensoren en de Proxssensoren
   lineSensors.initThreeSensors();
   proxSensors.initThreeSensors();
 
-  // Laden van aangepaste karakters voor het display
+  // Laden van aangepaste karakters voor de display
   loadCustomCharacters();
 
   // Kalibratie van de lijnsensoren
   calibrateLineSensors();
 }
 
-// Functie voor het laden van aangepaste karakters voor het display
+// Weet nog niet geheel wat dit doet
 void loadCustomCharacters()
 {
-  // Definitie van aangepaste karakters voor het display
+  
   static const char levels[] PROGMEM = {
     0, 0, 0, 0, 0, 0, 0, 63, 63, 63, 63, 63, 63, 63
   };
-  // Laden van de aangepaste karakters in het display
+  
   display.loadCustomCharacter(levels + 0, 0);  // 1 bar
   display.loadCustomCharacter(levels + 1, 1);  // 2 bars
   display.loadCustomCharacter(levels + 2, 2);  // 3 bars
@@ -47,7 +47,7 @@ void loadCustomCharacters()
   display.loadCustomCharacter(levels + 6, 6);  // 7 bars
 }
 
-// Functie voor het afdrukken van een balk op het display
+// Functie voor het afdrukken van een balk op de display (begrijp dit stuk code nog niet helemaal want heb namelijk geen balk op de display gezien)
 void printBar(uint8_t height)
 {
   // Beperk de hoogte van de balk tot maximaal 8
@@ -58,10 +58,10 @@ void printBar(uint8_t height)
   display.print(barChars[height]);
 }
 
-// Functie voor het afdrukken van gegevens van de nabijheidssensoren op het display
+// Functie voor het afdrukken van gegevens van de proxsensor op de display
 void printReadingsToDisplay()
 {
-  // Afdrukken van de waarden van de nabijheidssensoren op het display
+  // Afdrukken van de waarden van de proxsensoren op de display
   display.gotoXY(0, 0); 
   printBar(proxSensors.countsLeftWithLeftLeds());
   printBar(proxSensors.countsLeftWithRightLeds());
@@ -72,7 +72,7 @@ void printReadingsToDisplay()
   printBar(proxSensors.countsRightWithLeftLeds());
   printBar(proxSensors.countsRightWithRightLeds());
 
-  // Afdrukken van de waarden van de lijnsensoren op het display (niet relevant voor de nabijheidssensoren)
+  // Afdrukken van de waarden van de lijnsensoren op de display (niet relevant voor de proxsensor)
   display.gotoXY(0, 1);
   for (uint8_t i = 0; i < 5; i++)
   {
@@ -118,10 +118,10 @@ void loop()
   {
     lastSampleTime = millis();
 
-    // Uitvoeren van metingen met de nabijheidssensoren
+    // Uitvoeren van metingen met de proxsensoren
     proxSensors.read();
 
-    // Lezen van de nabijheidssensoren zonder IR-pulsen te verzenden
+    // Lezen van de proxsensoren zonder IR-pulsen te verzenden
     proxLeftActive = proxSensors.readBasicLeft();
     proxFrontActive = proxSensors.readBasicFront();
     proxRightActive = proxSensors.readBasicRight();
