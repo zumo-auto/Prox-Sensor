@@ -17,3 +17,23 @@ proxSensors.initThreeSensors();
 void loop(){
   
 }
+
+
+proxSensors.read()
+
+  int LeftSensor = proxSensors.countsLeftWithLeftLeds(); // linker sensor
+  int FrontLeftSensor = proxSensors.countsFrontWithLeftLeds(); // tussen links en middelste sensor
+  int FrontRightSensor = proxSensors.countsFrontWithRightLeds(); // tussen middelste en rechter sensor
+  int RightSensor = proxSensors.countsRightWithRightsLeds(); // rechter sensor
+
+Serial.print("Left: ");
+Serial.print(leftSensor);
+Serial.print("Front Left Sensor: ");
+Serial.print(FrontLeftSensor);
+Serial.print("Front Right Sensor: ");
+Serial.print(frontRightSensor);
+Serial.print("Right Sensor: ");
+Serial.print(RightSensor);
+
+// een kleine delay
+delay(200);
