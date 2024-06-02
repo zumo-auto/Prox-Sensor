@@ -15,7 +15,7 @@ void setup(){
       // hij wacht hier totdat buttonA is ingedrukt en losgelaten.
     }
 
-  Serial.printLn("Button A pressed, starting....");
+  Serial.println("Button A pressed, starting....");
 
 //prox sensor initializeren  - Dit kan eventueel naar 2 of 3 zijn afhankelijk of dit naar de linesensor gaat of niet.
 proxSensors.initThreeSensors();
