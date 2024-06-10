@@ -1,12 +1,12 @@
-#include "MainController.h"
+#include "MyZumo32U4Proximity.h"
 
-// Create an instance of MainController
-MainController mainController;
+MyZumo32U4Proximity myProximitySensor;
 
 void setup() {
-    mainController.setup(); // 
+    myProximitySensor.begin(); // Call the begin() method instead of setup()
 }
 
 void loop() {
-    mainController.loop(); // 
+    myProximitySensor.readSensors(); // Call the readSensors() method instead of loop()
+    // Do other tasks or actions based on sensor readings
 }
