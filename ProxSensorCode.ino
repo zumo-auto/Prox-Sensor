@@ -44,3 +44,7 @@ delay(200);
 Serial1 (xbee serial) die werkt niet, alhoewel Serial wel werkt, waarom dit zo is 
 is onduidelijk dit ook nagevraagd bij Quinten de persoon die de code maakt voor de xbee.
 */
+
+/*
+Er is ook een variant waar de main.ino/.CPP/.H file voor is en werkend
+*/
