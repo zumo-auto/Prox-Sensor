@@ -9,7 +9,7 @@ void setup(){
   // the bit rate (snelheid van communicatie) zetten wat 9600 (standaard) zal zijn 
   Serial.begin(4800); // 4800 // 9600
 
-//prox sensor initializeren  - Dit kan eventueel naar 2 of 3 zijn afhankelijk of dit naar de linesensor gaat of niet.
+//  prox sensor initializeren  - Dit is momenteel 2 en kan eventueel naar 3 afhankelijk of dit naar de linesensor gaat of niet.
 proxSensors.initThreeSensors();
 }
 
@@ -38,3 +38,9 @@ Serial.println(FrontRightSensor);
 // een kleine delay (zorgt voor betere functionaliteit omdat het niet constant iets moet lezen des te langer des te beter)
 delay(200);
 }
+
+
+/* 
+Serial1 (xbee serial) die werkt niet, alhoewel Serial wel werkt, waarom dit zo is 
+is onduidelijk dit ook nagevraagd bij Quinten de persoon die de code maakt voor de xbee.
+*/
